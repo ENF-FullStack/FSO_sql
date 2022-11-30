@@ -18,37 +18,28 @@ router.get('/', async (req, res) => {
       console.log(req.blog.toJSON())
       res.json(req.blog)
     } else {
-      res.status(400).end()
+      res.status(404).end()
     }
   })
   
   router.post('/', async (req, res) => {
     console.log(req.body)
-    try {
-      const blog = await Blog.create(req.body)
-      return res.json(blog)
-    } catch(error) {
-      return res.status(400).json({ error })
-    }
+    const blog = await Blog.create(req.body)
+    return res.json(blog)
+    
   })
   
   router.delete('/:id', blogFinder, async (req, res) => {
-    if (req.blog) {
-      await req.blog.destroy()
-    }
+    await req.blog.destroy()
     res.status(204).end()
-    })
+  })
 
   router.put('/:id', blogFinder, async (req, res) => {
-    if (req.blog) {
-        req.blog.author = req.body.author
-        req.blog.url = req.body.url
-        req.blog.title = req.body.title
-        await req.blog.save()
-        res.json(req.blog)
-    } else {
-        res.status(404).end()
-    }
+    const blog = req.blog
+    blog.likes = blog.likes + 1
+    await blog.save()
+    res.json({ likes: blog.likes })
+    
   })
 
 module.exports = router
