@@ -2,6 +2,26 @@ POST http://localhost:3001/api/blogs
 Content-Type: application/json
 
 {
+    "author": "Greg Bear",
+    "url": "www.gregbear.com",
+    "title": "Blood Music"
+}
+
+###
+POST http://localhost:3001/api/blogs
+Content-Type: application/json
+
+{
+    "author": "Peter Hamilton",
+    "url": "www.phamilton.com",
+    "title": "Naked God"
+}
+
+###
+POST http://localhost:3001/api/blogs
+Content-Type: application/json
+
+{
     "author": "Neil Simmons",
     "url": "www.carrioncomfort.com",
     "title": "Carrion Comfort"
@@ -9,15 +29,15 @@ Content-Type: application/json
 
 ###
 
-GET http://localhost:3001
+GET http://localhost:3001/api/blogs
 
 ###
 
 GET http://localhost:3001/api/blogs/1
 
 ###
-DELETE http://localhost:3001/api/blogs/3
+DELETE http://localhost:3001/api/blogs/4
 
 ###
 
-PUT http://localhost:3001/api/blogs/3
+PUT http://localhost:3001/api/blogs/6

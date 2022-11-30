@@ -1,0 +1,32 @@
+POST http://localhost:3001/api/users
+Content-Type: application/json
+
+{
+    "username": "vptervon",
+    "name": "VP Tervonen"
+}
+
+###
+
+POST http://localhost:3001/api/users
+Content-Type: application/json
+
+{
+    "username": "matervon",
+    "name": "Markus Tervonen"
+}
+
+###
+
+GET http://localhost:3001/api/users
+Content-Type: application/json
+
+###
+
+PUT http://localhost:3001/api/users/matervon
+Content-Type: application/json
+
+{
+    "username": "martervo",
+    "name": "Markus Tervonen"
+}
