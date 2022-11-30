@@ -2,7 +2,7 @@ POST http://localhost:3001/api/users
 Content-Type: application/json
 
 {
-    "username": "vptervon",
+    "username": "vptervon@elamshin.net",
     "name": "VP Tervonen"
 }
 
@@ -12,7 +12,7 @@ POST http://localhost:3001/api/users
 Content-Type: application/json
 
 {
-    "username": "matervon",
+    "username": "matervon@edukai.net",
     "name": "Markus Tervonen"
 }
 
@@ -27,6 +27,6 @@ PUT http://localhost:3001/api/users/matervon
 Content-Type: application/json
 
 {
-    "username": "martervo",
+    "username": "martervo@edukai.net",
     "name": "Markus Tervonen"
 }

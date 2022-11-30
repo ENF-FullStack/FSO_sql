@@ -7,12 +7,8 @@ router.get('/', async (req, res, next) => {
 })
 
 router.post('/', async (req, res, next) => {
-    try {
       const user = await User.create(req.body)
       res.json(user)
-    } catch(error) {
-      return res.status(400).json({ error })
-    }
   })
   
 router.get('/:id', async (req, res) => {
@@ -30,8 +26,9 @@ router.put('/:username', async (req, res) => {
       username: req.params.username
     }
   })
+
   if (!user) {
-    res.status(404).send(`User: ${req.params.username} not found`)
+    res.status(404).send(`User not found`)
   } else {
     user.username = req.body.username
     await user.save()
