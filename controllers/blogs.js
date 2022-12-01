@@ -1,6 +1,5 @@
 const router = require('express').Router()
-const { Blog } = require('../models/index')
-const { User } = require('../models/index')
+const { Blog, User } = require('../models/index')
 
 const blogFinder = async (req, res, next) => {
   req.blog = await Blog.findByPk(req.params.id)
@@ -8,10 +7,18 @@ const blogFinder = async (req, res, next) => {
 }
 
 router.get('/', async (req, res) => {
-    const blogs = await Blog.findAll({})
-    console.log(JSON.stringify(blogs, null, 2))
-    res.json(blogs)
+
+  const blogs = await Blog.findAll({
+    attributes: { exclude: ['userId']},
+    include: [{
+        model: User,
+        attributes: ['name']
+    }]
   })
+
+  // console.log(JSON.stringify(blogs, null, 2))
+  res.json(blogs)
+})
   
   router.get('/:id', blogFinder, async (req, res) => {
     if (req.blog) {
@@ -27,12 +34,8 @@ router.get('/', async (req, res) => {
       if (!req.decodedToken) {
         throw new Error('You need to be logged to post a blog')
       }
-      // const { title, author, url } = req.body
       const user = await User.findByPk(req.decodedToken.id)
-      console.log(user)
-      // const userId = req.decodedToken.id
       const blog = await Blog.create({...req.body, userId: req.decodedToken.id, likes: 0})
-      console.log(blog)
       res.json(blog)
     } catch(error) {
       return res.status(400).json({ error })
@@ -40,17 +43,30 @@ router.get('/', async (req, res) => {
   })
   
   router.delete('/:id', blogFinder, async (req, res) => {
-    const blog = await req.blog.destroy({
+    if (!req.decodedToken) {
+      throw new Error('Log in to deleter your blogs')
+    }
+
+    const blog = await Blog.findOne({
       where: {
         id: req.params.id
       }
     })
+    console.log(blog)
+
     if (!blog) {
-      res.status(404).send('Blog not found!')
-    } else {
-      res.status(204).send('Blog deleted').end()
+      throw new Error('Blog not found')
     }
-  })
+
+    if (blog.userId !== req.decodedToken.id) {
+      throw new Error('Error: cannot delete blogs you dont create')
+    }
+
+    await blog.destroy()
+    res.json({ message: 'Blog deleted'})
+    // res.status(204).send('Blog deleted')
+    }
+  )
 
   router.put('/:id', blogFinder, async (req, res) => {
     const blog = req.blog
