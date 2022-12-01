@@ -2,7 +2,7 @@ POST http://localhost:3001/api/login
 Content-Type: application/json
 
 {
-    "username": "vptervon",
+    "username": "vptervon@elamshin.net",
     "password": "secret"
 }
 
@@ -12,6 +12,6 @@ POST http://localhost:3001/api/login
 Content-Type: application/json
 
 {
-    "username": "matervon",
+    "username": "matervon@edukai.net",
     "password": "secret"
 }
