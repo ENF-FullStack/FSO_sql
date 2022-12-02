@@ -12,7 +12,7 @@ router.get('/', async (req, res, next) => {
 })
 
 router.post('/', async (req, res, next) => {
-      const user = await User.create(req.body)
+      const user = await User.create({...req.body, created_at: new Date(), updated_at: new Date()})
       res.json(user)
   })
   
@@ -36,6 +36,7 @@ router.put('/:username', async (req, res) => {
     res.status(404).send(`User not found`)
   } else {
     user.username = req.body.username
+    user.updated_at = new Date()
     await user.save()
     res.json({ username: user.username })
   }

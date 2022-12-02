@@ -1,5 +1,5 @@
 const router = require('express').Router()
-const { Blog, User } = require('../models/index')
+const { Blog, User } = require('../models')
 const { Op } = require('sequelize')
 
 const blogFinder = async (req, res, next) => {
@@ -46,7 +46,20 @@ router.get('/', async (req, res) => {
         throw new Error('You need to be logged to post a blog')
       }
       const user = await User.findByPk(req.decodedToken.id)
-      const blog = await Blog.create({...req.body, userId: req.decodedToken.id, likes: 0})
+      console.log(user.id)
+
+      //? 13.17 works
+      const { title, author, url } = req.body
+      const blog = await Blog.create({
+        title,
+        author,
+        url,
+        userId: user.id,
+        created_at: new Date(),
+        updated_at: new Date()
+      })
+
+      // const blog = await Blog.create({...req.body, user_id: user.id, created_at: new Date(), updated_at: new Date()})
       res.json(blog)
     } catch(error) {
       return res.status(400).json({ error })
@@ -81,10 +94,14 @@ router.get('/', async (req, res) => {
 
   router.put('/:id', blogFinder, async (req, res) => {
     const blog = req.blog
-    blog.likes = blog.likes + 1
-    await blog.save()
-    res.json({ likes: blog.likes })
-    
+    if (!blog) {
+      res.status(404).send('Blog not found')
+    } else {
+      blog.likes = blog.likes + 1
+      blog.updated_at = new Date()
+      await blog.save()
+      res.json({ likes: blog.likes })
+    }
   })
 
 module.exports = router

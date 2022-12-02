@@ -29,7 +29,7 @@ module.exports = {
               updated_at: {
                 type: DataTypes.DATE,
                 allowNull: false,
-              }
+              },
         })
 
         await queryInterface.createTable('users', {
@@ -57,17 +57,17 @@ module.exports = {
           updated_at: {
             type: DataTypes.DATE,
             allowNull: false,
-          }
+          },
         })
         
         await queryInterface.addColumn('blogs', 'user_id', {
             type: DataTypes.INTEGER,
             allowNull: false,
-            references: { model: 'users', key: 'id'}
+            references: { model: 'users', key: 'id' },
         })
     },
     down: async ({ context: queryInterface }) => {
         await queryInterface.dropTable('blogs')
         await queryInterface.dropTable('users')
-    }
+    },
 }
