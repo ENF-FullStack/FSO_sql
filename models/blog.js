@@ -31,6 +31,10 @@ Blog.init({
   updated_at: {
     type: DataTypes.DATE,
     allowNull: false
+  },
+  year: {
+    type: DataTypes.INTEGER,
+    allowNull: false
   }
 }, {
   sequelize,

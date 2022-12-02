@@ -41,7 +41,6 @@ router.get('/', async (req, res) => {
   })
   
   router.post('/', async (req, res, next) => {
-    try {
       if (!req.decodedToken) {
         throw new Error('You need to be logged to post a blog')
       }
@@ -49,21 +48,27 @@ router.get('/', async (req, res) => {
       console.log(user.id)
 
       //? 13.17 works
-      const { title, author, url } = req.body
-      const blog = await Blog.create({
-        title,
-        author,
-        url,
-        userId: user.id,
-        created_at: new Date(),
-        updated_at: new Date()
-      })
+      const { title, author, url, year } = req.body
 
-      // const blog = await Blog.create({...req.body, user_id: user.id, created_at: new Date(), updated_at: new Date()})
-      res.json(blog)
-    } catch(error) {
-      return res.status(400).json({ error })
-    }
+      //? 13.18 year-check
+      if (year >= 1991 && year <= new Date().getFullYear()) {
+        const blog = await Blog.create({
+          title,
+          author,
+          url,
+          year,
+          userId: user.id,
+          created_at: new Date(),
+          updated_at: new Date()
+        })
+  
+        // const blog = await Blog.create({...req.body, user_id: user.id, created_at: new Date(), updated_at: new Date()})
+        res.json(blog)
+      } else {
+        res.status(400).json({
+          error: 'Year must be between 1991 and this year'
+        })
+      }
   })
   
   router.delete('/:id', blogFinder, async (req, res) => {
