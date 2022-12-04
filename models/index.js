@@ -13,6 +13,10 @@ Blog.belongsTo(User)
 User.belongsToMany(Blog, { through: ReadingList, as: 'readings' })
 Blog.belongsToMany(User, { through: ReadingList, as: 'saved_by' })
 
+//? 11.23 relationships between blog and readinglist
+Blog.hasMany(ReadingList)
+ReadingList.belongsTo(Blog)
+
 //? old syncs, not required with migrations
 // User.sync({ alter: true })
 // Blog.sync({ alter: true })
