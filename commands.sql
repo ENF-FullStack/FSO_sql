@@ -10,3 +10,7 @@ insert into blogs (author, url, title) values ('Greg Bear', 'www.gregbear.com', 
 insert into blogs (author, url, title) values ('Peter Hamilton', 'www.phamilton.com', 'Naked God');
 
 SELECT * from blogs;
+
+insert into readinglists (userId, blogId) values (1,1);
+insert into readinglists (userId, blogId) values (1,2);
+insert into readinglists (userId, blogId) values (1,3);

@@ -8,7 +8,7 @@ module.exports = {
                 primaryKey: true,
                 autoIncrement: true
             },
-            userId: {
+            user_id: {
                 type: DataTypes.INTEGER,
                 allowNull: false,
                 references: {
@@ -16,7 +16,7 @@ module.exports = {
                     key: 'id'
                 }
             },
-            blogId: {
+            blog_id: {
                 type: DataTypes.INTEGER,
                 allowNull: false,
                 references: {

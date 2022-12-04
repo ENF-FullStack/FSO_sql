@@ -10,8 +10,8 @@ User.hasMany(Blog)
 Blog.belongsTo(User)
 
 //? m2m relationships between user and blog through connection table readingList
-User.belongsToMany(Blog, { through: ReadingList })
-Blog.belongsToMany(User, { through: ReadingList })
+User.belongsToMany(Blog, { through: ReadingList, as: 'readings' })
+Blog.belongsToMany(User, { through: ReadingList, as: 'saved_by' })
 
 //? old syncs, not required with migrations
 // User.sync({ alter: true })
