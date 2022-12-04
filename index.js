@@ -23,7 +23,7 @@ app.use('/api/blogs', tokenExtractor, blogsRouter)
 app.use('/api/users', usersRouter)
 app.use('/api/login', loginRouter)
 app.use('/api/authors', authorRouter)
-app.use('/api/readinglists', readinglistRouter)
+app.use('/api/readinglists', tokenExtractor, readinglistRouter)
 
 app.use(errorHandler)
 
