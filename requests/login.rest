@@ -15,3 +15,9 @@ Content-Type: application/json
     "username": "matervon@edukai.net",
     "password": "secret"
 }
+
+###
+
+DELETE http://localhost:3001/api/logout
+Content-Type: application/json
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InZwdGVydm9uQGVsYW1zaGluLm5ldCIsIm5hbWUiOiJWUCBUZXJ2b25lbiIsImlkIjoxLCJpYXQiOjE2NzAxMjI1MDF9.hTlHGXh9AbYAC2XvuChhj9z77RfhWFMOMlHlzcruh8k

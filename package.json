@@ -28,6 +28,8 @@
     "umzug": "^3.2.1"
   },
   "devDependencies": {
-    "nodemon": "^2.0.20"
+    "eslint": "^8.29.0",
+    "nodemon": "^2.0.20",
+    "prettier": "^2.8.0"
   }
 }
